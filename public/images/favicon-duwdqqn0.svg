@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none">
+  <!-- Background Outer Ring -->
+  <circle cx="100" cy="100" r="90" stroke="#3B1F0F" stroke-width="11" fill="white" />
+
+  <!-- Styled letter "R" in Gold -->
+  <path d="M 94 65 L 132 65 C 152 65, 162 75, 162 90 C 162 105, 150 115, 132 115 L 94 115 M 125 115 L 158 152" stroke="#F4B400" stroke-width="15" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  
+  <!-- Gold inner line accent for premium 3D feeling -->
+  <path d="M 94 65 L 132 65 C 152 65, 162 75, 162 90 C 162 105, 150 115, 132 115 L 94 115 M 125 115 L 158 152" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.6" />
+
+  <!-- Distinctive Cross in Dark Brown -->
+  <!-- Horizontal beam -->
+  <path d="M 52 92 L 126 92" stroke="#3B1F0F" stroke-width="18" stroke-linecap="round" fill="none" />
+  <!-- Vertical beam -->
+  <path d="M 86 48 L 86 156" stroke="#3B1F0F" stroke-width="18" stroke-linecap="round" fill="none" />
+
+  <!-- Cross inner gold accent line -->
+  <path d="M 52 92 L 126 92" stroke="#F4B400" stroke-width="3" stroke-linecap="round" fill="none" />
+  <path d="M 86 48 L 86 156" stroke="#F4B400" stroke-width="3" stroke-linecap="round" fill="none" />
+</svg>
