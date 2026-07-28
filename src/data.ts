@@ -1,5 +1,7 @@
 import { Sermon, ChurchEvent, Ministry, LifeGroup, FAQItem, Testimonial, Announcement } from "./types";
 
+const img = (name: string) => `${import.meta.env.BASE_URL}images/${name}`;
+
 export const ANNOUNCEMENTS: Announcement[] = [
   {
     id: "ann-2",
@@ -122,7 +124,7 @@ export const EVENTS: ChurchEvent[] = [
     location: "Church Auditorium, Renewal Church Buloba",
     description: "Saturate your Saturday morning in fervent prayer, rich fellowship, and a hearty warm brotherhood breakfast under the theme \"The boy in you must DIE\" (#THE_QUEST_FOR_AUTHENTIC_MANHOOD). An essential gathering of Renewal men to establish strong, secure spiritual altars for our families and homes.",
     category: "Men",
-    image: "/src/assets/images/WhatsApp Image 2026-07-13 at 10.22.02 AM.jpeg",
+    image: img("WhatsApp Image 2026-07-13 at 10.22.02 AM.jpeg"),
     requiresRegistration: true,
     registeredCount: 0,
     isPast: true
@@ -135,7 +137,7 @@ export const EVENTS: ChurchEvent[] = [
     location: "Renewal Church Buloba",
     description: "A transformative, empowering conference themed \"For Such a time as this\" (Esther 4:14) featuring guest speakers Ps. Irene Kasirivu, Ps. Ann Matovu, and Ps. Lillian Teira, hosted by Ps. Renson & Ps. Carol Mwawasi. Come and be spiritually refreshed, equipped, and built up in God's presence.",
     category: "Women",
-    image: "/src/assets/images/WOW conference.png",
+    image: img("WOW conference.png"),
     requiresRegistration: false,
     registeredCount: 0
   },
@@ -147,7 +149,7 @@ export const EVENTS: ChurchEvent[] = [
     location: "Renewal Church Grounds & Buloba Suburbs",
     description: "Our massive end of year celebration with the community crossing into the next year! Thanksgiving prayers, joy-filled sharing meals, corporate testimonies, and high praise.",
     category: "Outreach",
-    image: "/src/assets/images/Crowd.jpeg",
+    image: img("Crowd.jpeg"),
     requiresRegistration: false,
     registeredCount: 0
   }
@@ -160,13 +162,13 @@ export const MINISTRIES: Ministry[] = [
     leader: "",
     role: "Director of Children Ministries",
     description: "Catering to children from age 2 to 12. Our goal is to plant the seed of God's Word in young hearts early through scripture retention, interactive lessons, drama, and fun Christian games.",
-    image: "/src/assets/images/Children-1.jpeg",
+    image: img("Children-1.jpeg"),
     images: [
-      "/src/assets/images/Children-1.jpeg",
-      "/src/assets/images/Childrens ministry.jpeg",
-      "/src/assets/images/Childrens m.jpeg",
-      "/src/assets/images/Children.jpeg",
-      "/src/assets/images/Children mm.jpg"
+      img("Children-1.jpeg"),
+      img("Childrens ministry.jpeg"),
+      img("Childrens m.jpeg"),
+      img("Children.jpeg"),
+      img("Children mm.jpg")
     ],
     objectPosition: "object-top",
     activities: ["Creative Sunday School classes during both services", "Annual Kids' Bible Camp during holidays", "Children's Choir rehearsals"],
@@ -179,10 +181,10 @@ export const MINISTRIES: Ministry[] = [
     leader: "",
     role: "Youth & Discipleship Pastor",
     description: "A passionate assembly of teenagers and university students. Our youth ministry works to spark bold faith, solid bible habits, and help young Ugandans live impact-driven lifestyles.",
-    image: "/src/assets/images/youth2.jpeg",
+    image: img("youth2.jpeg"),
     images: [
-      "/src/assets/images/youth2.jpeg",
-      "/src/assets/images/Youth still.jpeg"
+      img("youth2.jpeg"),
+      img("Youth still.jpeg")
     ],
     objectPosition: "object-[center_25%]",
     activities: ["Weekly Saturday Youth fellowship sessions", "High school outreach teams", "Creative Arts and Youth Sports tournaments"],
@@ -195,12 +197,12 @@ export const MINISTRIES: Ministry[] = [
     leader: "",
     role: "Lead Worship Director",
     description: "Lifting up a pure, sound, and spirit-filled sacrifice of praise in Buloba. This team guides our congregations into dynamic, celebratory, and intimate encounters with God's presence.",
-    image: "/src/assets/images/XChoir.jpeg",
+    image: img("XChoir.jpeg"),
     images: [
-      "/src/assets/images/XChoir.jpeg",
-      "/src/assets/images/choir.jpeg",
-      "/src/assets/images/Phillip praise.jpeg",
-      "/src/assets/images/Her praise.jpeg"
+      img("XChoir.jpeg"),
+      img("choir.jpeg"),
+      img("Phillip praise.jpeg"),
+      img("Her praise.jpeg")
     ],
     objectPosition: "object-top",
     activities: ["Sunday worship guidance", "Monthly Night of Devoted Praise", "Songwriting and instrument masterclasses"],
@@ -213,12 +215,12 @@ export const MINISTRIES: Ministry[] = [
     leader: "",
     role: "Women's Ministry Patron",
     description: "Empowering women to walk in emotional, financial, and spiritual authority. Ladies of Honor focus on building stable standard marriages, supporting widows, and establishing enterprises.",
-    image: "/src/assets/images/new women.jpeg",
+    image: img("new women.jpeg"),
     images: [
-      "/src/assets/images/new women.jpeg",
-      "/src/assets/images/wow.jpeg",
-      "/src/assets/images/women m.jpeg",
-      "/src/assets/images/Wow1.jpeg"
+      img("new women.jpeg"),
+      img("wow.jpeg"),
+      img("women m.jpeg"),
+      img("Wow1.jpeg")
     ],
     objectPosition: "object-center",
     activities: ["Monthly business incubation circles", "Welfare and maternal support missions", "Counselling and family values panels"],
@@ -231,11 +233,11 @@ export const MINISTRIES: Ministry[] = [
     leader: "",
     role: "President",
     description: "Unbending biblical leadership for husbands, fathers, and bachelors. We challenge men to take up spiritual responsibility in their homes, business ethics, and practical church maintenance.",
-    image: "/src/assets/images/MENs B.jpeg",
+    image: img("MENs B.jpeg"),
     images: [
-      "/src/assets/images/MENs B.jpeg",
-      "/src/assets/images/Men.jpeg",
-      "/src/assets/images/phillip men.jpeg"
+      img("MENs B.jpeg"),
+      img("Men.jpeg"),
+      img("phillip men.jpeg")
     ],
     objectPosition: "object-[center_30%]",
     activities: ["Men's Prayer Breakfast retreats", "Youth boy mentorship drills", "Community micro-capital associations"],
@@ -248,12 +250,12 @@ export const MINISTRIES: Ministry[] = [
     leader: "",
     role: "Evangelism Coordinator",
     description: "Bringing the love of Christ onto the dusty streets, homes, and hospitals around Buloba. This team organizes medical camps, prison fellowships, and open-air gospel crusades.",
-    image: "/src/assets/images/evangelism.jpeg",
+    image: img("evangelism.jpeg"),
     images: [
-      "/src/assets/images/evangelism.jpeg",
-      "/src/assets/images/3 (6).jpeg",
-      "/src/assets/images/E1.jpeg",
-      "/src/assets/images/3 (1).jpeg"
+      img("evangelism.jpeg"),
+      img("3 (6).jpeg"),
+      img("E1.jpeg"),
+      img("3 (1).jpeg")
     ],
     objectPosition: "object-center",
     activities: ["Buloba street track-sharing", "Quarterly clinical medical testing drives", "Emergency family relief food baskets"],
@@ -266,7 +268,7 @@ export const MINISTRIES: Ministry[] = [
     leader: "",
     role: "Technical Production Supervisor",
     description: "Spreading the Renewal message to Buloba and the ends of the earth. Responsible for live streaming, projection, pristine sound production, video editing, and graphic design.",
-    image: "/src/assets/images/media.png",
+    image: img("media.png"),
     objectPosition: "object-center",
     facebookLink: "https://www.facebook.com/renewalchurchbuloba",
     activities: ["Weekly YouTube/Facebook streams setup (Facebook: renewalchurchbuloba)", "Pre-production filming", "Audio mastering and acoustics upgrade team"],
@@ -279,11 +281,11 @@ export const MINISTRIES: Ministry[] = [
     leader: "",
     role: "Lead Intercessor",
     description: "The engine-room of Renewal Church. Keeping the fire burning day and night as we stand in the gap for families, the church leadership, Uganda, and the global body of Christ.",
-    image: "/src/assets/images/PRAYER.jpeg",
+    image: img("PRAYER.jpeg"),
     images: [
-      "/src/assets/images/PRAYER.jpeg",
-      "/src/assets/images/PRAYER2.jpeg",
-      "/src/assets/images/PRayer3.jpeg"
+      img("PRAYER.jpeg"),
+      img("PRAYER2.jpeg"),
+      img("PRayer3.jpeg")
     ],
     objectPosition: "object-[center_30%]",
     activities: ["Wednesday 5:00pm to 7:00pm", "Friday Night Altar overnights", "Fast-alert prayer request dispatch team"],
@@ -296,16 +298,16 @@ export const MINISTRIES: Ministry[] = [
     leader: "",
     role: "Head Ushers Coordinator",
     description: "Greeting, hosting, serving, and maintaining beautiful order and decorum in the House of God during all ministries, regular services, and special events.",
-    image: "/src/assets/images/usher1.jpeg",
+    image: img("usher1.jpeg"),
     images: [
-      "/src/assets/images/usher1.jpeg",
-      "/src/assets/images/usher2.jpeg",
-      "/src/assets/images/Usher.jpg",
-      "/src/assets/images/U2.jpg",
-      "/src/assets/images/USHERS M.jpeg",
-      "/src/assets/images/USHERS W.jpeg",
-      "/src/assets/images/IMMAUSHER.jpeg",
-      "/src/assets/images/IRENEUSHER.jpeg"
+      img("usher1.jpeg"),
+      img("usher2.jpeg"),
+      img("Usher.jpg"),
+      img("U2.jpg"),
+      img("USHERS M.jpeg"),
+      img("USHERS W.jpeg"),
+      img("IMMAUSHER.jpeg"),
+      img("IRENEUSHER.jpeg")
     ],
     objectPosition: "object-top",
     activities: ["Welcoming visitors, managing seating layouts, communion logistical setups, and offering decorum"],
