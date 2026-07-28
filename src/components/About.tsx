@@ -1,6 +1,8 @@
 import React from "react";
 import { Check, ShieldCheck, Heart, Users, Compass, BookOpen, Flame, Sparkles, Search, ChevronDown, ChevronUp } from "lucide-react";
 
+const img = (name: string) => `${import.meta.env.BASE_URL}images/${name}`;
+
 interface AboutProps {
   showStatementOfFaith?: boolean;
 }
@@ -112,19 +114,19 @@ export default function About({ showStatementOfFaith = true }: AboutProps) {
       name: "Ps. Renson Mwawasi",
       role: "Team leader of RENEWAL CHURCH BULOBA",
       bio: "Ps. Renson Mwawasi serves as the Team leader of RENEWAL CHURCH BULOBA. He possesses a deep shepherd's heart and a passionate mandate for practical discipleship, community transformation, and raising spirit-led families in Buloba.",
-      avatar: "/src/assets/images/lead2.jpeg",
+      avatar: img("lead2.jpeg"),
     },
     {
       name: "Ps. Carol Mwawasi",
       role: "Ladies Patron",
       bio: "Ps. Carol Mwawasi co-leads the ministry with a distinct, powerful intercessory grace. As Co-Lead Pastor and wife to Ps. Renson, she mentors ladies, hosts counseling sessions, patron for Womens ministry and Raising young girls to Maturity",
-      avatar: "/src/assets/images/CAROL.jpeg",
+      avatar: img("CAROL.jpeg"),
     },
     {
       name: "Renewal Deacons",
       role: "Administration and ServantHood",
       bio: "Our diligent Deacons and Deaconesses oversee the practical, physical, and logistical departments of the church—managing sanctuary setups, visitor hospitality, mercy care support, and finances with absolute integrity.",
-      avatar: "/src/assets/images/ps male deacons.jpg",
+      avatar: img("ps male deacons.jpg"),
     },
   ];
 

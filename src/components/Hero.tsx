@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
+const img = (name: string) => `${import.meta.env.BASE_URL}images/${name}`;
+
 interface HeroProps {
   onNavigate: (view: string) => void;
   onOpenPlanVisit: () => void;
@@ -36,7 +38,7 @@ const slides: Slide[] = [
     badge: "🍳 Men's Breakfast Gathering",
     title: "Men's Breakfast Gathering",
     description: "Saturate your Saturday morning in fervent prayer, rich brotherhood fellowship, and a hearty warm breakfast.",
-    image: "/src/assets/images/MEN GATHER.jpeg",
+    image: img("MEN GATHER.jpeg"),
     linkView: "ministries",
     detail: "Saturdays: 8:00 AM Onwards",
     objectPosition: "center"
@@ -46,7 +48,7 @@ const slides: Slide[] = [
     badge: "🔥 Altar Intercession & Prayer",
     title: "Prayer & Intercession",
     description: "We gather weekly to pray for families, our community, and the nation. Join our Friday overnights.",
-    image: "/src/assets/images/PRAYER.jpeg",
+    image: img("PRAYER.jpeg"),
     linkView: "prayer",
     detail: "Intercession: Fridays 10:00 PM Onwards",
     objectPosition: "center 25%"
@@ -56,7 +58,7 @@ const slides: Slide[] = [
     badge: "👑 Women of Worth (WOW)",
     title: "Women of Worth (WOW)",
     description: "Empowering ladies of faith to grow in spiritual authority, family leadership, and enterprise.",
-    image: "/src/assets/images/women gatherings.jpeg",
+    image: img("women gatherings.jpeg"),
     linkView: "ministries",
     detail: "First Saturday of the Month: 10:00 AM",
     objectPosition: "center"
@@ -66,7 +68,7 @@ const slides: Slide[] = [
     badge: "🎵 Active Choir & Praise Team",
     title: "Renewal Choir",
     description: "Join us in sweet Ugandan praise and live ministering harmonies. Our choir practices every Saturday evening.",
-    image: "/src/assets/images/Talent praise.jpeg",
+    image: img("Talent praise.jpeg"),
     linkView: "ministries",
     detail: "Practice: Saturdays 6:00 PM - 10:00 PM",
     objectPosition: "center 30%"
@@ -76,7 +78,7 @@ const slides: Slide[] = [
     badge: "🎙️ Sunday Sermons & Preaching",
     title: "Sunday Sermons",
     description: "Hear inspiring, life-changing Bible lessons preached weekly to build your faith.",
-    image: "/src/assets/images/Sermons preaching.jpeg",
+    image: img("Sermons preaching.jpeg"),
     linkView: "sermons",
     detail: "Sundays: 10:30 AM - 1:00 PM",
     objectPosition: "center 25%"
@@ -86,7 +88,7 @@ const slides: Slide[] = [
     badge: "📖 Fervent Word & Devotion",
     title: "A Growing Congregation",
     description: "Our massive church family gathered in unity, deeply focused and listening to the life-giving Word of God.",
-    image: "/src/assets/images/People.jpeg",
+    image: img("People.jpeg"),
     linkView: "about",
     detail: "Over 600+ Active Members",
     objectPosition: "center 25%",

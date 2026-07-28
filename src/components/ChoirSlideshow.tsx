@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import Logo from "./Logo";
 
+const img = (name: string) => `${import.meta.env.BASE_URL}images/${name}`;
+
 interface ChoirSlide {
   id: string;
   image: string;
@@ -74,7 +76,7 @@ const POPULAR_GOSPEL_SONGS: PopularSong[] = [
 const CHOIR_SLIDES: ChoirSlide[] = [
   {
     id: "choir-slide-1",
-    image: "/src/assets/images/Logos praise.jpeg",
+    image: img("Logos praise.jpeg"),
     title: "The Renewal Voices",
     subtitle: "Ministering through deep praise and multi-part harmonies",
     songHighlight: "Praise (Elevation Worship) & Local Medleys",
@@ -84,7 +86,7 @@ const CHOIR_SLIDES: ChoirSlide[] = [
   },
   {
     id: "choir-slide-2",
-    image: "/src/assets/images/Talent praise.jpeg",
+    image: img("Talent praise.jpeg"),
     title: "Praise & Worship Sundays",
     subtitle: "Beautiful Sunday Praise and worship from our choir and worship team",
     songHighlight: "Lengera Ekyaalo & Sunday Adoration",
@@ -94,7 +96,7 @@ const CHOIR_SLIDES: ChoirSlide[] = [
   },
   {
     id: "choir-slide-3",
-    image: "/src/assets/images/David choir.jpeg",
+    image: img("David choir.jpeg"),
     title: "Our Instrumentalists Team",
     subtitle: "Dedicated musicians crafting beautiful chords and steady rhythms to lead us in worship",
     songHighlight: "Sowing in Righteousness & Worship Chords",
@@ -104,7 +106,7 @@ const CHOIR_SLIDES: ChoirSlide[] = [
   },
   {
     id: "choir-slide-4",
-    image: "/src/assets/images/section youth.jpeg",
+    image: img("section youth.jpeg"),
     title: "Youth Harmonies",
     subtitle: "A vibrant team of young voices sharing modern praise and growing together in faith",
     songHighlight: "Youth Praise & Way Maker Medley",
