@@ -1,0 +1,6 @@
+{
+  "name": "Renewal Church Buloba",
+  "description": "The official community and worship hub for Renewal Church Buloba, Uganda. Prepared for a harvest.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
