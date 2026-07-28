@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { ChevronLeft, ChevronRight, Users, Sparkles, Pause, Play, Heart, Send, CheckCircle2, MessageSquare, MapPin, Phone, User } from "lucide-react";
 
+const img = (name: string) => `${import.meta.env.BASE_URL}images/${name}`;
+
 interface CellSlide {
   id: number;
   url: string;
@@ -13,35 +15,35 @@ interface CellSlide {
 const CELL_SLIDES: CellSlide[] = [
   {
     id: 1,
-    url: "/src/assets/images/ladies in cell (1).jpeg",
+    url: img("ladies in cell (1).jpeg"),
     title: "Women's Home Cell Fellowship",
     subtitle: "Living Room Worship & Discipleship",
     description: "Sisters in Buloba gathering midweek in neighborhood homes to pray, study the Scriptures, and encourage one another."
   },
   {
     id: 2,
-    url: "/src/assets/images/ladies in cell (2).jpeg",
+    url: img("ladies in cell (2).jpeg"),
     title: "Sisterhood Prayer & Intercession",
     subtitle: "Standing in Faith Together",
     description: "Warm cell meetings focused on personal prayer, community intercession, and uplifting families across Buloba."
   },
   {
     id: 3,
-    url: "/src/assets/images/ladies in cell (3).jpeg",
+    url: img("ladies in cell (3).jpeg"),
     title: "Word & Devotional Reflection",
     subtitle: "Unpacking Sunday Teachings",
     description: "Deepening spiritual roots through guided Bible discussions, practical life application, and group reflection."
   },
   {
     id: 4,
-    url: "/src/assets/images/ladies in cell (4).jpeg",
+    url: img("ladies in cell (4).jpeg"),
     title: "Cell Fellowship & Tea Time",
     subtitle: "Joyful Hospitality & Laughter",
     description: "Sharing light refreshments, personal testimonies, and genuine warmth in welcoming home settings."
   },
   {
     id: 5,
-    url: "/src/assets/images/ladies in cell (5).jpeg",
+    url: img("ladies in cell (5).jpeg"),
     title: "Midweek Fellowship & Hospitality",
     subtitle: "Growth & Connection in Buloba",
     description: "Connecting closely in small groups to experience the power of intimate Christian community."
