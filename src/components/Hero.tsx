@@ -37,7 +37,7 @@ const INITIAL_SLIDES: Slide[] = [
     badge: "📖 Life-Transforming Ministry",
     title: "The Living Word with Ps. Carol Emmy",
     description: "Transformative Sunday ministry bringing hope, salvation, and empowerment to Buloba families.",
-    image: "/src/assets/images/1 (6).jpeg",
+    image: "/images/1 (6).jpeg",
     linkView: "sermons",
     detail: "Sundays: 10:30 AM - 1:00 PM",
     objectPosition: "center 25%"
@@ -47,7 +47,7 @@ const INITIAL_SLIDES: Slide[] = [
     badge: "🎵 Beautiful Choir & Worship",
     title: "Renewal Voices Choir",
     description: "Lifting heavenly sounds, rich multi-part harmonies, and vibrant praise in every Sunday service.",
-    image: "/src/assets/images/1 (8).jpeg",
+    image: "/images/1 (8).jpeg",
     linkView: "ministries",
     detail: "Practice: Saturdays 6:00 PM - 10:00 PM",
     objectPosition: "center 30%"
@@ -57,7 +57,7 @@ const INITIAL_SLIDES: Slide[] = [
     badge: "🙌 Joyful Church Family",
     title: "A Growing Congregation",
     description: "Our massive church family gathered in unity, deeply focused, and worshipping the Lord in truth and spirit.",
-    image: "/src/assets/images/1 (4).jpeg",
+    image: "/images/1 (4).jpeg",
     linkView: "about",
     detail: "Over 600+ Active Members",
     objectPosition: "center 25%"
@@ -67,7 +67,7 @@ const INITIAL_SLIDES: Slide[] = [
     badge: "🍳 Men's Breakfast Gathering",
     title: "Men's Breakfast Gathering",
     description: "Saturate your Saturday morning in fervent prayer, rich brotherhood fellowship, and a hearty warm breakfast.",
-    image: "/src/assets/images/MEN GATHER.jpeg",
+    image: "/images/MEN GATHER.jpeg",
     linkView: "ministries",
     detail: "Saturdays: 8:00 AM Onwards",
     objectPosition: "center"
@@ -77,7 +77,7 @@ const INITIAL_SLIDES: Slide[] = [
     badge: "🎙️ Sunday Sermon & Teaching",
     title: "Ps. Carol Emmy Preaching",
     description: "Inspiring biblical teachings, prophetic insights, and spiritual wisdom shared during Sunday worship.",
-    image: "/src/assets/images/1 (5).jpeg",
+    image: "/images/1 (5).jpeg",
     linkView: "sermons",
     detail: "Sundays: 10:30 AM - 1:00 PM",
     objectPosition: "center 25%"
@@ -87,7 +87,7 @@ const INITIAL_SLIDES: Slide[] = [
     badge: "🙏 Prayer & Heartfelt Worship",
     title: "Deep Personal Devotion",
     description: "Congregation members in deep personal prayer and reverent worship during our Sunday celebrations.",
-    image: "/src/assets/images/1 (1).jpeg",
+    image: "/images/1 (1).jpeg",
     linkView: "prayer",
     detail: "Sundays: 10:30 AM - 1:00 PM",
     objectPosition: "center 25%"
@@ -97,7 +97,7 @@ const INITIAL_SLIDES: Slide[] = [
     badge: "✨ Fervent Altar Worship",
     title: "Surrender & Seeking God",
     description: "Sincere hearts lifted to God in heartfelt worship, surrender, and spiritual renewal.",
-    image: "/src/assets/images/1 (10).jpeg",
+    image: "/images/1 (10).jpeg",
     linkView: "about",
     detail: "Every Sunday Celebration",
     objectPosition: "center 25%"
@@ -107,7 +107,7 @@ const INITIAL_SLIDES: Slide[] = [
     badge: "🔥 Altar Intercession & Prayer",
     title: "Prayer & Intercession",
     description: "We gather weekly to pray for families, our community, and the nation. Join our Friday overnights.",
-    image: "/src/assets/images/PRAYER.jpeg",
+    image: "/images/PRAYER.jpeg",
     linkView: "prayer",
     detail: "Intercession: Fridays 10:00 PM Onwards",
     objectPosition: "center 25%"
@@ -117,7 +117,7 @@ const INITIAL_SLIDES: Slide[] = [
     badge: "👑 Women of Worth (WOW)",
     title: "Women of Worth (WOW)",
     description: "Empowering ladies of faith to grow in spiritual authority, family leadership, and enterprise.",
-    image: "/src/assets/images/women gatherings.jpeg",
+    image: "/images/women gatherings.jpeg",
     linkView: "ministries",
     detail: "First Saturday of the Month: 10:00 AM",
     objectPosition: "center"

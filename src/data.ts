@@ -78,29 +78,29 @@ export const SERMONS: Sermon[] = [
     series: "Harvest Series",
     duration: "45 mins",
     description: "In this powerful sermon, Ps. Renson unpacks Hosea 10:12, teaching on what it means to break up our fallow grounds and prepare ourselves for God's divine outpouring.",
-    thumbnail: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?q=80&w=600&auto=format&fit=crop"
-  },
-  {
-    id: "serm-2",
-    title: "Seeing the Unseen",
-    videoId: "unseen-2026",
-    speaker: "Ps. Renson Mwawasi",
-    date: "April 12, 2026",
-    series: "Spiritual Vision",
-    duration: "40 mins",
-    description: "Walking by faith and not by sight. Go deep into spiritual alertness and focusing your eyes on the eternal and spiritual reality of God's unchanging promises.",
-    thumbnail: "https://images.unsplash.com/photo-1518156677180-95a2893f3e9f?q=80&w=600&auto=format&fit=crop"
+    thumbnail: img("Sermons preaching.jpeg")
   },
   {
     id: "serm-3",
-    title: "Don't Give Up",
+    title: "Don't Give Up: Divine Endurance",
     videoId: "dont-give-up",
-    speaker: "Ps. Carol Mwawasi",
+    speaker: "Ps. Carol Emmy Mwawasi",
     date: "November 17, 2024",
     series: "Hope & Resilience",
     duration: "35 mins",
     description: "A message of divine hope, steady endurance, and steadfast perseverance through hard, dry chapters. God is organizing a sweet breakthrough in your waiting season.",
-    thumbnail: "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?q=80&w=600&auto=format&fit=crop"
+    thumbnail: img("1 (5).jpeg")
+  },
+  {
+    id: "serm-2",
+    title: "Seeing the Unseen & Walking in Purpose",
+    videoId: "unseen-2026",
+    speaker: "Ps. Carol Emmy Mwawasi",
+    date: "April 12, 2026",
+    series: "Spiritual Vision",
+    duration: "40 mins",
+    description: "Walking by faith and not by sight. Go deep into spiritual alertness and focusing your eyes on the eternal and spiritual reality of God's unchanging promises.",
+    thumbnail: img("1 (6).jpeg")
   },
   {
     id: "serm-4",
@@ -111,11 +111,37 @@ export const SERMONS: Sermon[] = [
     series: "Deep Conviction",
     duration: "42 mins",
     description: "Stepping into uncharted territories of obedience and absolute trust. Discover what happens when we leave the shore of comfort and meet God's supernatural hand over waters.",
-    thumbnail: "https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?q=80&w=600&auto=format&fit=crop"
+    thumbnail: img("1 (4).jpeg")
   }
 ];
 
 export const EVENTS: ChurchEvent[] = [
+  {
+    id: "ev-discipleship-leadership",
+    title: "Discipleship and Leadership Development Training",
+    date: "2026-09-19",
+    time: "9:00 AM - 1:00 PM",
+    location: "Renewal Church Buloba Training Hall",
+    description: "An essential and transformative leadership session designed to equip emerging leaders, life group stewards, and faithful believers with deep biblical foundations, ministry leadership skills, and discipleship practical tools for kingdom advancement.",
+    category: "General",
+    image: img("1 (2).jpeg"),
+    requiresRegistration: true,
+    registeredCount: 0,
+    isPast: false
+  },
+  {
+    id: "ev-financial-literacy-2",
+    title: "Second Financial Literacy Training",
+    date: "2026-11-14",
+    time: "10:00 AM - 2:00 PM",
+    location: "Church Auditorium, Renewal Church Buloba",
+    description: "Empowering families and church members with practical kingdom stewardship, budgeting mastery, debt freedom, wise investing, and entrepreneurship principles to build lasting generational wealth and impact.",
+    category: "General",
+    image: img("Literacy.jpeg"),
+    requiresRegistration: true,
+    registeredCount: 0,
+    isPast: false
+  },
   {
     id: "ev-4",
     title: "Men's Breakfast",
