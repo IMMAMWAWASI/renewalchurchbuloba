@@ -16,15 +16,11 @@ export default function Events({ onNavigate, eventsList: propsEventsList, onAddE
     if (saved) {
       try {
         const parsed = JSON.parse(saved) as ChurchEvent[];
-        const merged = parsed.map((ev) => {
-          const staticEv = EVENTS.find((s) => s.id === ev.id);
-          return staticEv ? { ...ev, ...staticEv } : ev;
-        });
-        EVENTS.forEach((staticEv) => {
-          if (!merged.some((ev) => ev.id === staticEv.id)) {
-            merged.push(staticEv);
-          }
-        });
+        const customEvents = parsed.filter(
+          (ev) => !["ev-1", "ev-2", "ev-3", "ev-4", "ev-5", "ev-6", "ev-7", "ev-discipleship-leadership", "ev-financial-literacy-2"].includes(ev.id) &&
+                  !EVENTS.some((s) => s.id === ev.id)
+        );
+        const merged = [...EVENTS, ...customEvents];
         return merged;
       } catch (err) {
         return EVENTS;

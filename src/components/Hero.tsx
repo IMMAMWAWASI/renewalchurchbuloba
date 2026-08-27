@@ -9,11 +9,10 @@ import {
   Compass, 
   MapPin, 
   CalendarDays,
-  Volume2
+  Volume2,
+  Shuffle
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-
-const img = (name: string) => `${import.meta.env.BASE_URL}images/${name}`;
 
 interface HeroProps {
   onNavigate: (view: string) => void;
@@ -32,23 +31,83 @@ interface Slide {
   objectFit?: "cover" | "contain";
 }
 
-const slides: Slide[] = [
+const INITIAL_SLIDES: Slide[] = [
+  {
+    id: "sermon-carol-2",
+    badge: "📖 Life-Transforming Ministry",
+    title: "The Living Word with Ps. Carol Emmy",
+    description: "Transformative Sunday ministry bringing hope, salvation, and empowerment to Buloba families.",
+    image: "/src/assets/images/1 (6).jpeg",
+    linkView: "sermons",
+    detail: "Sundays: 10:30 AM - 1:00 PM",
+    objectPosition: "center 25%"
+  },
+  {
+    id: "choir",
+    badge: "🎵 Beautiful Choir & Worship",
+    title: "Renewal Voices Choir",
+    description: "Lifting heavenly sounds, rich multi-part harmonies, and vibrant praise in every Sunday service.",
+    image: "/src/assets/images/1 (8).jpeg",
+    linkView: "ministries",
+    detail: "Practice: Saturdays 6:00 PM - 10:00 PM",
+    objectPosition: "center 30%"
+  },
+  {
+    id: "congregation",
+    badge: "🙌 Joyful Church Family",
+    title: "A Growing Congregation",
+    description: "Our massive church family gathered in unity, deeply focused, and worshipping the Lord in truth and spirit.",
+    image: "/src/assets/images/1 (4).jpeg",
+    linkView: "about",
+    detail: "Over 600+ Active Members",
+    objectPosition: "center 25%"
+  },
   {
     id: "mens-breakfast",
     badge: "🍳 Men's Breakfast Gathering",
     title: "Men's Breakfast Gathering",
     description: "Saturate your Saturday morning in fervent prayer, rich brotherhood fellowship, and a hearty warm breakfast.",
-    image: img("MEN GATHER.jpeg"),
+    image: "/src/assets/images/MEN GATHER.jpeg",
     linkView: "ministries",
     detail: "Saturdays: 8:00 AM Onwards",
     objectPosition: "center"
+  },
+  {
+    id: "sermon-carol-1",
+    badge: "🎙️ Sunday Sermon & Teaching",
+    title: "Ps. Carol Emmy Preaching",
+    description: "Inspiring biblical teachings, prophetic insights, and spiritual wisdom shared during Sunday worship.",
+    image: "/src/assets/images/1 (5).jpeg",
+    linkView: "sermons",
+    detail: "Sundays: 10:30 AM - 1:00 PM",
+    objectPosition: "center 25%"
+  },
+  {
+    id: "congregation-prayer-1",
+    badge: "🙏 Prayer & Heartfelt Worship",
+    title: "Deep Personal Devotion",
+    description: "Congregation members in deep personal prayer and reverent worship during our Sunday celebrations.",
+    image: "/src/assets/images/1 (1).jpeg",
+    linkView: "prayer",
+    detail: "Sundays: 10:30 AM - 1:00 PM",
+    objectPosition: "center 25%"
+  },
+  {
+    id: "congregation-prayer-2",
+    badge: "✨ Fervent Altar Worship",
+    title: "Surrender & Seeking God",
+    description: "Sincere hearts lifted to God in heartfelt worship, surrender, and spiritual renewal.",
+    image: "/src/assets/images/1 (10).jpeg",
+    linkView: "about",
+    detail: "Every Sunday Celebration",
+    objectPosition: "center 25%"
   },
   {
     id: "prayer",
     badge: "🔥 Altar Intercession & Prayer",
     title: "Prayer & Intercession",
     description: "We gather weekly to pray for families, our community, and the nation. Join our Friday overnights.",
-    image: img("PRAYER.jpeg"),
+    image: "/src/assets/images/PRAYER.jpeg",
     linkView: "prayer",
     detail: "Intercession: Fridays 10:00 PM Onwards",
     objectPosition: "center 25%"
@@ -58,57 +117,41 @@ const slides: Slide[] = [
     badge: "👑 Women of Worth (WOW)",
     title: "Women of Worth (WOW)",
     description: "Empowering ladies of faith to grow in spiritual authority, family leadership, and enterprise.",
-    image: img("women gatherings.jpeg"),
+    image: "/src/assets/images/women gatherings.jpeg",
     linkView: "ministries",
     detail: "First Saturday of the Month: 10:00 AM",
     objectPosition: "center"
-  },
-  {
-    id: "choir",
-    badge: "🎵 Active Choir & Praise Team",
-    title: "Renewal Choir",
-    description: "Join us in sweet Ugandan praise and live ministering harmonies. Our choir practices every Saturday evening.",
-    image: img("Talent praise.jpeg"),
-    linkView: "ministries",
-    detail: "Practice: Saturdays 6:00 PM - 10:00 PM",
-    objectPosition: "center 30%"
-  },
-  {
-    id: "sermon",
-    badge: "🎙️ Sunday Sermons & Preaching",
-    title: "Sunday Sermons",
-    description: "Hear inspiring, life-changing Bible lessons preached weekly to build your faith.",
-    image: img("Sermons preaching.jpeg"),
-    linkView: "sermons",
-    detail: "Sundays: 10:30 AM - 1:00 PM",
-    objectPosition: "center 25%"
-  },
-  {
-    id: "congregation",
-    badge: "📖 Fervent Word & Devotion",
-    title: "A Growing Congregation",
-    description: "Our massive church family gathered in unity, deeply focused and listening to the life-giving Word of God.",
-    image: img("People.jpeg"),
-    linkView: "about",
-    detail: "Over 600+ Active Members",
-    objectPosition: "center 25%",
-    objectFit: "contain"
   }
 ];
 
 export default function Hero({ onNavigate, onOpenPlanVisit }: HeroProps) {
+  const [slides, setSlides] = useState<Slide[]>(INITIAL_SLIDES);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [eqHeights, setEqHeights] = useState<number[]>([15, 30, 45, 25, 10, 35, 50, 20]);
   const [isHovered, setIsHovered] = useState(false);
 
-  // Audio equalizer bars effect when active slide is the Choir slide
+  // Shuffle slides function
+  const handleShuffle = (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    setSlides(prev => {
+      const copy = [...prev];
+      for (let i = copy.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    });
+    setActiveSlideIndex(0);
+  };
+
+  // Audio equalizer bars effect when active slide is a Choir slide
   useEffect(() => {
-    if (slides[activeSlideIndex]?.id !== "choir") return;
+    if (slides[activeSlideIndex]?.id !== "choir" && slides[activeSlideIndex]?.id !== "choir-harmony") return;
     const interval = setInterval(() => {
       setEqHeights(prev => prev.map(() => Math.floor(Math.random() * 40) + 10));
     }, 150);
     return () => clearInterval(interval);
-  }, [activeSlideIndex]);
+  }, [activeSlideIndex, slides]);
 
   // Automated slideshow cycle (5.5s intervals, pauses when user hovers to read details)
   useEffect(() => {
@@ -117,7 +160,7 @@ export default function Hero({ onNavigate, onOpenPlanVisit }: HeroProps) {
       setActiveSlideIndex(prev => (prev + 1) % slides.length);
     }, 5500);
     return () => clearInterval(interval);
-  }, [isHovered]);
+  }, [isHovered, slides.length]);
 
   const activeData = slides[activeSlideIndex];
 
@@ -350,7 +393,15 @@ export default function Hero({ onNavigate, onOpenPlanVisit }: HeroProps) {
                     {activeData.badge}
                   </span>
                   
-                  <div className="flex gap-1.5 bg-black/40 backdrop-blur-md px-2.5 py-1.5 rounded-full border border-white/10 pointer-events-auto">
+                  <div className="flex items-center gap-1.5 bg-black/40 backdrop-blur-md px-2.5 py-1.5 rounded-full border border-white/10 pointer-events-auto">
+                    <button
+                      type="button"
+                      onClick={handleShuffle}
+                      className="text-white/60 hover:text-brand-gold transition-colors pr-1.5 border-r border-white/20 flex items-center gap-1 text-[9px] font-mono font-bold"
+                      title="Shuffle Slides"
+                    >
+                      <Shuffle className="w-3 h-3" />
+                    </button>
                     {slides.map((_, idx) => (
                       <button
                         key={idx}
@@ -398,7 +449,7 @@ export default function Hero({ onNavigate, onOpenPlanVisit }: HeroProps) {
                       {activeData.detail}
                     </span>
 
-                    {activeData.id === "choir" ? (
+                    {activeData.id === "choir" || activeData.id === "choir-harmony" ? (
                       <div className="flex items-end gap-1 h-5 pt-1">
                         <Volume2 className="w-3.5 h-3.5 text-brand-gold" />
                         {eqHeights.map((ht, i) => (
