@@ -181,15 +181,113 @@ export default function Events({ onNavigate, eventsList: propsEventsList, onAddE
     });
   };
 
-  // Filtered Events
-  const filteredEvents = displayEvents.filter((ev) => {
-    const matchesCategory = activeCategory === "All" || ev.category === activeCategory;
-    const matchesSearch =
-      ev.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      ev.description.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCategory && matchesSearch;
-  });
+  ```tsx
+  // Event date helpers: use Uganda's calendar date for automatic status.
+  const getEventDateInfo = (date: string) => {
+    const match = /^(\d{4})-(\d{2})-(\d{2})/.exec(date);
 
+    // Handle date-only values such as "2026-10-10" without timezone shifts.
+    if (match) {
+      const year = Number(match[1]);
+      const month = Number(match[2]);
+      const day = Number(match[3]);
+
+      const calendarDate = new Date(year, month - 1, day);
+
+      // Reject invalid calendar dates.
+      if (
+        calendarDate.getFullYear() !== year ||
+        calendarDate.getMonth() !== month - 1 ||
+        calendarDate.getDate() !== day
+      ) {
+        return { key: null as string | null, displayDate: null as Date | null };
+      }
+
+      return {
+        key: `${match[1]}-${match[2]}-${match[3]}`,
+        displayDate: calendarDate,
+      };
+    }
+
+    // Handle timestamps using Uganda's timezone.
+    const parsed = new Date(date);
+
+    if (Number.isNaN(parsed.getTime())) {
+      return { key: null as string | null, displayDate: null as Date | null };
+    }
+
+    const parts = new Intl.DateTimeFormat("en-US", {
+      timeZone: "Africa/Kampala",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).formatToParts(parsed);
+
+    const getPart = (type: string) =>
+      parts.find((part) => part.type === type)?.value ?? "";
+
+    const year = getPart("year");
+    const month = getPart("month");
+    const day = getPart("day");
+
+    return {
+      key: `${year}-${month}-${day}`,
+      displayDate: new Date(Number(year), Number(month) - 1, Number(day)),
+    };
+  };
+
+  const todayParts = new Intl.DateTimeFormat("en-US", {
+    timeZone: "Africa/Kampala",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).formatToParts(new Date());
+
+  const todayPart = (type: string) =>
+    todayParts.find((part) => part.type === type)?.value ?? "";
+
+  const todayKey =
+    `${todayPart("year")}-${todayPart("month")}-${todayPart("day")}`;
+
+  // Automatically determine whether an event's date has passed.
+  const isEventPast = (event: ChurchEvent) => {
+    const eventDate = getEventDateInfo(event.date);
+    return eventDate.key !== null && eventDate.key < todayKey;
+  };
+
+  // Filter events, then place upcoming events first and past events below.
+  const filteredEvents = displayEvents
+    .filter((ev) => {
+      const matchesCategory =
+        activeCategory === "All" || ev.category === activeCategory;
+
+      const matchesSearch =
+        ev.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        ev.description.toLowerCase().includes(searchQuery.toLowerCase());
+
+      return matchesCategory && matchesSearch;
+    })
+    .sort((a, b) => {
+      const aPast = isEventPast(a);
+      const bPast = isEventPast(b);
+
+      // Upcoming events always appear before completed events.
+      if (aPast !== bPast) return aPast ? 1 : -1;
+
+      const dateA = getEventDateInfo(a.date).key;
+      const dateB = getEventDateInfo(b.date).key;
+
+      // Events with invalid dates go last.
+      if (!dateA && !dateB) return 0;
+      if (!dateA) return 1;
+      if (!dateB) return -1;
+
+      // Upcoming: nearest first. Past: most recently completed first.
+      return aPast
+        ? dateB.localeCompare(dateA)
+        : dateA.localeCompare(dateB);
+    });
+```
   return (
     <section id="church-events-section" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
@@ -265,6 +363,7 @@ export default function Events({ onNavigate, eventsList: propsEventsList, onAddE
           </div>
         )}
 
+      ```tsx
         {/* Timeline Event Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {filteredEvents.map((ev) => (
@@ -278,13 +377,15 @@ export default function Events({ onNavigate, eventsList: propsEventsList, onAddE
                 <img
                   src={ev.image}
                   alt={ev.title}
-                  className={`w-full h-full object-cover ${ev.isPast ? "filter grayscale brightness-75" : ""}`}
+                  className={`w-full h-full object-cover ${
+                    isEventPast(ev) ? "filter grayscale brightness-75" : ""
+                  }`}
                   referrerPolicy="no-referrer"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-brand-brown/70 via-transparent to-transparent" />
-                
+
                 {/* Red diagonal stamp for past events */}
-                {ev.isPast && (
+                {isEventPast(ev) && (
                   <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/40 pointer-events-none overflow-hidden">
                     <div className="transform -rotate-12 bg-red-600 text-white font-display font-black text-xs sm:text-sm uppercase tracking-widest px-6 py-2 border-2 border-white shadow-2xl rounded drop-shadow-2xl animate-pulse">
                       PASSED / OVER
@@ -295,10 +396,12 @@ export default function Events({ onNavigate, eventsList: propsEventsList, onAddE
                 {/* Floating Date Badge inside card */}
                 <div className="absolute top-4 left-4 bg-brand-brown p-2.5 rounded-2xl text-center text-white border border-brand-gold/20 shadow-md z-10">
                   <span className="block font-mono text-[10px] font-bold leading-none tracking-widest text-brand-gold">
-                    {new Date(ev.date).toLocaleDateString("en", { month: "short" }).toUpperCase()}
+                    {getEventDateInfo(ev.date).displayDate
+                      ?.toLocaleDateString("en", { month: "short" })
+                      .toUpperCase() ?? "DATE"}
                   </span>
                   <span className="block font-serif text-lg font-extrabold leading-tight mt-0.5">
-                    {new Date(ev.date).getDate()}
+                    {getEventDateInfo(ev.date).displayDate?.getDate() ?? "—"}
                   </span>
                 </div>
               </div>
@@ -310,7 +413,8 @@ export default function Events({ onNavigate, eventsList: propsEventsList, onAddE
                     <span className="bg-brand-brown/10 px-2 py-0.5 rounded text-brand-brown">
                       {ev.category} Fellowship
                     </span>
-                    {ev.isPast && (
+
+                    {isEventPast(ev) && (
                       <span className="bg-red-100 text-red-700 px-2 py-0.5 rounded font-bold">
                         CONCLUDED
                       </span>
@@ -320,6 +424,7 @@ export default function Events({ onNavigate, eventsList: propsEventsList, onAddE
                   <h4 className="font-serif text-lg font-bold text-brand-brown leading-tight">
                     {ev.title}
                   </h4>
+
                   <p className="text-xs text-brand-charcoal-light/85 leading-relaxed line-clamp-3">
                     {ev.description}
                   </p>
@@ -331,6 +436,7 @@ export default function Events({ onNavigate, eventsList: propsEventsList, onAddE
                     <Clock className="w-3.5 h-3.5 text-brand-gold shrink-0" />
                     <span>⏰ {ev.time}</span>
                   </div>
+
                   <div className="flex items-center gap-1.5">
                     <MapPin className="w-3.5 h-3.5 text-brand-gold shrink-0" />
                     <span className="truncate">📍 {ev.location}</span>
@@ -339,7 +445,7 @@ export default function Events({ onNavigate, eventsList: propsEventsList, onAddE
 
                 {/* Registration trigger & Ministry Direct routing */}
                 <div className="pt-2 space-y-2">
-                  {ev.isPast ? (
+                  {isEventPast(ev) ? (
                     <div className="bg-red-50 text-red-700 border border-red-200 py-2 px-3 text-center rounded-lg text-xs font-bold font-mono tracking-wider uppercase flex items-center justify-center gap-1.5">
                       ⛔ EVENT CONCLUDED / PASSED
                     </div>
@@ -348,7 +454,8 @@ export default function Events({ onNavigate, eventsList: propsEventsList, onAddE
                       onClick={() => handleRegisterClick(ev)}
                       className="bg-brand-brown hover:bg-brand-charcoal text-white font-display font-semibold transition-colors duration-150 text-xs px-4 py-2 rounded-lg cursor-pointer flex items-center justify-center gap-1.5 w-full"
                     >
-                      <Ticket className="w-3.5 h-3.5 text-brand-gold" /> Secure Entry Pass
+                      <Ticket className="w-3.5 h-3.5 text-brand-gold" />
+                      Secure Entry Pass
                     </button>
                   ) : (
                     <div className="bg-slate-100 py-1.5 px-3 text-center border border-slate-200 text-brand-charcoal-light rounded-lg text-xxs font-semibold font-mono tracking-wide">
@@ -360,6 +467,7 @@ export default function Events({ onNavigate, eventsList: propsEventsList, onAddE
                     onClick={() => {
                       const minId = getMinistryIdForEvent(ev.id, ev.category);
                       localStorage.setItem("pending_ministry_focus", minId);
+
                       if (onNavigate) {
                         onNavigate("ministries");
                       }
@@ -367,7 +475,10 @@ export default function Events({ onNavigate, eventsList: propsEventsList, onAddE
                     className="w-full text-[10px] font-mono font-bold uppercase tracking-wider text-brand-brown hover:text-[#E2A600] flex items-center justify-center gap-1 bg-brand-brown/5 hover:bg-brand-brown/10 py-1.5 px-3 rounded-lg group transition-all"
                     title="Join the organizing team or committee for this activity"
                   >
-                    🙌 Join Organizing Committee / Ministry <span className="group-hover:translate-x-1 transition-transform">➔</span>
+                    🙌 Join Organizing Committee / Ministry{" "}
+                    <span className="group-hover:translate-x-1 transition-transform">
+                      ➔
+                    </span>
                   </button>
                 </div>
               </div>
@@ -377,13 +488,16 @@ export default function Events({ onNavigate, eventsList: propsEventsList, onAddE
           {filteredEvents.length === 0 && (
             <div className="col-span-full bg-brand-cream/15 p-12 text-center rounded-3xl border border-brand-brown/5">
               <span className="text-3xl">📅</span>
-              <h4 className="font-display text-lg font-bold text-brand-brown mt-3">No Fellowship Circles Found</h4>
+              <h4 className="font-display text-lg font-bold text-brand-brown mt-3">
+                No Fellowship Circles Found
+              </h4>
               <p className="text-xs text-brand-charcoal-light mt-1">
                 Keep checking! There are many beautiful monthly, or joint events loading soon.
               </p>
             </div>
           )}
         </div>
+```
 
         {/* Host/Create New Fellowship Event Dialog Modal Overlay */}
         {isAddEventOpen && (

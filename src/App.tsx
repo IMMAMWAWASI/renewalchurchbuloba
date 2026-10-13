@@ -60,56 +60,78 @@ export default function App() {
     localStorage.setItem("church_events", JSON.stringify(updated));
   };
 
-  // Dynamically compute announcements from static + events list
+```tsx
+  // Dynamically compute announcements from static announcements + upcoming events
   const dynamicAnnouncements = React.useMemo(() => {
     const list = [...ANNOUNCEMENTS];
-    
-    // Sort events by date so upcoming events are displayed chronologically
+
+    // Parse dates safely using local dates to avoid timezone shifts.
+    const getEventDate = (date: string): Date | null => {
+      const dateOnly = date.split("T")[0];
+      const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dateOnly);
+
+      if (match) {
+        const year = Number(match[1]);
+        const month = Number(match[2]) - 1;
+        const day = Number(match[3]);
+
+        const parsed = new Date(year, month, day);
+
+        // Reject invalid calendar dates.
+        if (
+          parsed.getFullYear() !== year ||
+          parsed.getMonth() !== month ||
+          parsed.getDate() !== day
+        ) {
+          return null;
+        }
+
+        return parsed;
+      }
+
+      const parsed = new Date(date);
+      return Number.isNaN(parsed.getTime()) ? null : parsed;
+    };
+
+    // Today's date, with the time set to midnight.
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Sort events chronologically; invalid dates go last.
     const sortedEvents = [...eventsList].sort((a, b) => {
-      const timeA = new Date(a.date).getTime();
-      const timeB = new Date(b.date).getTime();
-      if (isNaN(timeA)) return 1;
-      if (isNaN(timeB)) return -1;
-      return timeA - timeB;
+      const dateA = getEventDate(a.date);
+      const dateB = getEventDate(b.date);
+
+      if (!dateA && !dateB) return 0;
+      if (!dateA) return 1;
+      if (!dateB) return -1;
+
+      return dateA.getTime() - dateB.getTime();
     });
 
     sortedEvents.forEach((ev) => {
-      // Timezone safe formatting (prevents timezone shifts causing dates to show 1 day early)
-      let dateFormatted = ev.date;
-      const dateParts = ev.date.split("-");
-      if (dateParts.length === 3) {
-        const year = parseInt(dateParts[0]);
-        const month = parseInt(dateParts[1]) - 1;
-        const day = parseInt(dateParts[2]);
-        const localDate = new Date(year, month, day);
-        if (!isNaN(localDate.getTime())) {
-          dateFormatted = localDate.toLocaleDateString("en-US", {
-            weekday: "short",
-            month: "short",
-            day: "numeric",
-          });
-        }
-      } else {
-        const parsed = new Date(ev.date);
-        if (!isNaN(parsed.getTime())) {
-          dateFormatted = parsed.toLocaleDateString("en-US", {
-            weekday: "short",
-            month: "short",
-            day: "numeric",
-          });
-        }
-      }
+      const eventDate = getEventDate(ev.date);
+
+      // Do not announce events with invalid or past dates.
+      if (!eventDate || eventDate < today) return;
+
+      const dateFormatted = eventDate.toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+      });
 
       list.push({
         id: `dynamic-ann-${ev.id}`,
         text: `📅 NOTICE: [${ev.category}] "${ev.title}" is coming up on ${dateFormatted} at ${ev.time} (${ev.location})!`,
         linkText: "View Details",
-        targetView: "events"
+        targetView: "events",
       });
     });
 
     return list;
   }, [eventsList]);
+```
 
   // Auto-scroll to top when view/tab alterations occur
   useEffect(() => {
