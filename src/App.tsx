@@ -60,7 +60,7 @@ export default function App() {
     localStorage.setItem("church_events", JSON.stringify(updated));
   };
 
-```tsx
+
   // Dynamically compute announcements from static announcements + upcoming events
   const dynamicAnnouncements = React.useMemo(() => {
     const list = [...ANNOUNCEMENTS];
@@ -131,7 +131,6 @@ export default function App() {
 
     return list;
   }, [eventsList]);
-```
 
   // Auto-scroll to top when view/tab alterations occur
   useEffect(() => {

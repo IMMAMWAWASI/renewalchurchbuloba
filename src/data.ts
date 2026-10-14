@@ -132,7 +132,7 @@ export const EVENTS: ChurchEvent[] = [
   {
     id: "ev-financial-literacy-2",
     title: "Second Financial Literacy Training",
-    date: "2026-11-14",
+    date: "2026-08-15",
     time: "10:00 AM - 2:00 PM",
     location: "Church Auditorium, Renewal Church Buloba",
     description: "Empowering families and church members with practical kingdom stewardship, budgeting mastery, debt freedom, wise investing, and entrepreneurship principles to build lasting generational wealth and impact.",
